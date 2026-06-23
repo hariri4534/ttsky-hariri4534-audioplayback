@@ -16,7 +16,7 @@ module tt_um_hariri4534_audioplayback (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-localparam LINE_SIZE = 16;
+localparam LINE_SIZE = 8;
 // bidir pinouts
 //    uio_in            | uio_out
 // [7] - start_prog     | [7] - audio_out

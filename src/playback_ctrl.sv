@@ -151,8 +151,8 @@ always_ff @(posedge clk) begin
     end
 end
 
-assign addr_offset[4]     = 1'b1;
-assign addr_offset[3:0]   = 4'b0000;
+assign addr_offset[$clog2(LINE_SIZE)]       = 1'b1;
+assign addr_offset[$clog2(LINE_SIZE)-1:0]   = 4'b0000;
 assign addr_nxt = rd_en_q ? addr_q + { {ADDR_PAD{1'b0}}, addr_offset }
                           : addr_q;
 
