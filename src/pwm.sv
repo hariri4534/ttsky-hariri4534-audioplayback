@@ -8,6 +8,7 @@ module pwm (
     input wire logic rst_n,
 
     input wire logic [7:0] sample_i,
+    input wire logic [7:0] count_d_i,
     input wire logic sample_valid_i,
 
     output wire logic pwm_o

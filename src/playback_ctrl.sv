@@ -11,9 +11,8 @@ module playback_ctrl #(parameter LINE_SIZE=16) (
     output reg  [23:0] addr_o,    // Current read address
     output reg         rd_o,      // Trigger a new read
 
-    // Interface to PWM
-    output reg         sample_valid_o,
-    output reg  [7:0]  sample_o   // 8-bit PCM sample to PWM
+    // PWM Output
+    output reg         pwm_o
 );
 
 localparam ADDR_PAD = 24 - $clog2(LINE_SIZE) - 1;
@@ -27,6 +26,7 @@ logic [23:0] addr_q, addr_nxt;
 logic [7:0] count_q, count_nxt;
 logic [$clog2(LINE_SIZE)-1:0] sample_ptr_q;
 logic [$clog2(LINE_SIZE)-1:0] sample_ptr_nxt;
+logic pwm_d, pwm_q;
 logic [7:0] pwm_data;
 logic next_sample;
 logic gen_read_req;
@@ -129,6 +129,16 @@ assign pwm_data = {8{sample_ptr_q == 4'd0}}  & data_buf_q[0   +: 8]
                 | {8{sample_ptr_q == 4'd14}} & data_buf_q[112 +: 8]
                 | {8{sample_ptr_q == 4'd15}} & data_buf_q[120 +: 8];
 
+assign pwm_d = count_nxt < pwm_data;
+
+always_ff @( posedge clk ) begin
+    if (!rst_n) begin
+        pwm_q   <= '0;
+    end else if (start_count_q) begin
+        pwm_q   <= pwm_d;
+    end    
+end
+
 always_ff @(posedge clk) begin
     if (~rst_n) begin
         rd_req_q    <= '1;
@@ -146,10 +156,9 @@ assign addr_offset[3:0]   = 4'b0000;
 assign addr_nxt = rd_en_q ? addr_q + { {ADDR_PAD{1'b0}}, addr_offset }
                           : addr_q;
 
-assign sample_valid_o = start_count_q;
 assign rd_o     = rd_req_pulse_q;
 assign addr_o   = addr_q;
-assign sample_o = pwm_data;
+assign pwm_o    = pwm_q;
 
 `ifdef FORMAL
     reg f_past_valid = 0;

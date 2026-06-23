@@ -80,7 +80,7 @@ localparam LINE_SIZE = 16;
   // All other output pins assigned to 0 (overriding line 43-45)
   assign uo_out[6:0] = 7'b0;
   assign uo_out[7]   = pwm_out;
-
+/*
   pwm u_pwm (
     .clk            (clk),
     .rst_n          (rst_n),
@@ -88,7 +88,7 @@ localparam LINE_SIZE = 16;
     .sample_valid_i (sample_valid),
     .pwm_o          (pwm_out)
   );
-
+*/
   assign done_w_sck = done & qspi_sck;
 
   playback_ctrl 
@@ -101,10 +101,9 @@ localparam LINE_SIZE = 16;
     .speed_ctl_i    ({ui_in[1], ui_in[0]}),
     .rd_en_i        (done_w_sck),
 
-    .sample_valid_o (sample_valid),
     .addr_o         (addr),
     .rd_o           (rd),
-    .sample_o       (sample)
+    .pwm_o          (pwm_out)
 
   );
 
