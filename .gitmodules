@@ -1,0 +1,3 @@
+[submodule "src/ip/EF_QSPI_XIP_CTRL"]
+	path = src/ip/EF_QSPI_XIP_CTRL
+	url = https://github.com/efabless/EF_QSPI_XIP_CTRL.git

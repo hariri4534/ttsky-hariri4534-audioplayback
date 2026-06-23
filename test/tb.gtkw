@@ -1,39 +1,320 @@
 [*]
 [*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
-[*] Mon Nov 20 16:00:28 2023
+[*] Fri Jun 12 09:58:43 2026
 [*]
-[dumpfile] "/home/uri/p/tt-new-template-proto/test/tb.fst"
-[dumpfile_mtime] "Mon Nov 20 15:58:34 2023"
-[dumpfile_size] 1110
-[savefile] "/home/uri/p/tt-new-template-proto/test/tb.gtkw"
-[timestart] 0
-[size] 1376 600
-[pos] -1 -1
-*-24.534533 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[dumpfile] "/foss/designs/ttsky-hariri4534-audioplayback/test/tb.fst"
+[dumpfile_mtime] "Fri Jun 12 09:57:57 2026"
+[dumpfile_size] 906615
+[savefile] "/foss/designs/ttsky-hariri4534-audioplayback/test/tb.gtkw"
+[timestart] 202003700
+[size] 1374 600
+[pos] 0 207
+*-17.000000 202260000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[markername] AA
+[markername] BB
+[markername] CC
+[markername] DD
+[markername] EE
+[markername] FF
+[markername] GG
+[markername] HH
+[markername] II
+[markername] JJ
+[markername] KK
+[markername] LL
+[markername] MM
+[markername] NN
+[markername] OO
+[markername] PP
+[markername] QQ
+[markername] RR
+[markername] SS
+[markername] TT
+[markername] UU
+[markername] VV
+[markername] WW
+[markername] XX
+[markername] YY
+[markername] ZZ
 [treeopen] tb.
-[sst_width] 297
-[signals_width] 230
+[treeopen] tb.user_project.
+[treeopen] tb.user_project.u_EF_QSPI_XIP_CTRL.
+[treeopen] tb.user_project.u_playback.
+[sst_width] 276
+[signals_width] 300
 [sst_expanded] 1
-[sst_vpaned_height] 158
+[sst_vpaned_height] 150
+@200
+-playback controller
 @28
-tb.user_project.ena
-@29
-tb.user_project.clk
+tb.user_project.u_playback.clk
+tb.qspi_cs_n
+tb.user_project.u_playback.rd_req_pulse_q
+tb.user_project.u_playback.rd_en_i
+tb.user_project.u_playback.rd_req_q
+tb.user_project.u_playback.rst_n
+@22
+tb.user_project.u_playback.data_buf_q[127:0]
 @28
-tb.user_project.rst_n
-@200
--Inputs
+tb.user_project.u_playback.start_count_q
 @22
-tb.user_project.ui_in[7:0]
-@200
--Bidirectional Pins
+tb.user_project.u_playback.sample_o[7:0]
+@28
+tb.user_project.u_playback.gen_read_req
+tb.user_project.u_playback.sample_toggle_q
+@25
+tb.user_project.u_playback.count_q[7:0]
+@c00022
+tb.user_project.u_playback.sample_ptr_q[3:0]
+@28
+(0)tb.user_project.u_playback.sample_ptr_q[3:0]
+(1)tb.user_project.u_playback.sample_ptr_q[3:0]
+(2)tb.user_project.u_playback.sample_ptr_q[3:0]
+(3)tb.user_project.u_playback.sample_ptr_q[3:0]
+@1401200
+-group_end
 @22
-tb.user_project.uio_in[7:0]
-tb.user_project.uio_oe[7:0]
-tb.user_project.uio_out[7:0]
+tb.user_project.u_playback.addr_offset[3:0]
+@c00022
+tb.user_project.u_playback.addr_q[23:0]
+@28
+(0)tb.user_project.u_playback.addr_q[23:0]
+(1)tb.user_project.u_playback.addr_q[23:0]
+(2)tb.user_project.u_playback.addr_q[23:0]
+(3)tb.user_project.u_playback.addr_q[23:0]
+(4)tb.user_project.u_playback.addr_q[23:0]
+(5)tb.user_project.u_playback.addr_q[23:0]
+(6)tb.user_project.u_playback.addr_q[23:0]
+(7)tb.user_project.u_playback.addr_q[23:0]
+(8)tb.user_project.u_playback.addr_q[23:0]
+(9)tb.user_project.u_playback.addr_q[23:0]
+(10)tb.user_project.u_playback.addr_q[23:0]
+(11)tb.user_project.u_playback.addr_q[23:0]
+(12)tb.user_project.u_playback.addr_q[23:0]
+(13)tb.user_project.u_playback.addr_q[23:0]
+(14)tb.user_project.u_playback.addr_q[23:0]
+(15)tb.user_project.u_playback.addr_q[23:0]
+(16)tb.user_project.u_playback.addr_q[23:0]
+(17)tb.user_project.u_playback.addr_q[23:0]
+(18)tb.user_project.u_playback.addr_q[23:0]
+(19)tb.user_project.u_playback.addr_q[23:0]
+(20)tb.user_project.u_playback.addr_q[23:0]
+(21)tb.user_project.u_playback.addr_q[23:0]
+(22)tb.user_project.u_playback.addr_q[23:0]
+(23)tb.user_project.u_playback.addr_q[23:0]
+@1401200
+-group_end
+@28
+tb.user_project.u_playback.next_sample
+tb.user_project.u_playback.sample_ptr_increment[2:0]
 @200
--Output Pins
+-qspi controller
+@28
+tb.user_project.u_EF_QSPI_XIP_CTRL.clk
+tb.user_project.u_EF_QSPI_XIP_CTRL.done
+tb.user_project.u_EF_QSPI_XIP_CTRL.ce_n
+tb.user_project.u_EF_QSPI_XIP_CTRL.READER.state
+@c00022
+tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+@28
+(0)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(1)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(2)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(3)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(4)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(5)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(6)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(7)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(8)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(9)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(10)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(11)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(12)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(13)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(14)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(15)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(16)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(17)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(18)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(19)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(20)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(21)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(22)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+(23)tb.user_project.u_EF_QSPI_XIP_CTRL.addr[23:0]
+@1401200
+-group_end
+@c00022
+tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+@28
+(0)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(1)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(2)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(3)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(4)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(5)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(6)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(7)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(8)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(9)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(10)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(11)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(12)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(13)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(14)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(15)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(16)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(17)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(18)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(19)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(20)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(21)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(22)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(23)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(24)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(25)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(26)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(27)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(28)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(29)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(30)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(31)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(32)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(33)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(34)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(35)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(36)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(37)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(38)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(39)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(40)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(41)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(42)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(43)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(44)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(45)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(46)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(47)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(48)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(49)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(50)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(51)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(52)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(53)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(54)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(55)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(56)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(57)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(58)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(59)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(60)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(61)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(62)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(63)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(64)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(65)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(66)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(67)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(68)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(69)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(70)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(71)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(72)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(73)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(74)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(75)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(76)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(77)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(78)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(79)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(80)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(81)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(82)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(83)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(84)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(85)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(86)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(87)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(88)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(89)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(90)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(91)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(92)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(93)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(94)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(95)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(96)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(97)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(98)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(99)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(100)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(101)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(102)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(103)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(104)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(105)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(106)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(107)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(108)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(109)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(110)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(111)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(112)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(113)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(114)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(115)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(116)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(117)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(118)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(119)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(120)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(121)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(122)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(123)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(124)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(125)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(126)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+(127)tb.user_project.u_EF_QSPI_XIP_CTRL.line[127:0]
+@1401200
+-group_end
+@c00024
+tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+@28
+(0)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(1)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(2)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(3)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(4)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(5)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(6)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+(7)tb.user_project.u_EF_QSPI_XIP_CTRL.READER.counter[7:0]
+@1401200
+-group_end
+@28
+tb.user_project.u_EF_QSPI_XIP_CTRL.READER.sck
 @22
-tb.user_project.uo_out[7:0]
+tb.user_project.u_EF_QSPI_XIP_CTRL.READER.dout[3:0]
+@28
+tb.user_project.u_EF_QSPI_XIP_CTRL.douten
+@22
+tb.user_project.u_EF_QSPI_XIP_CTRL.dout[3:0]
+@28
+tb.user_project.u_EF_QSPI_XIP_CTRL.rd_done
+@200
+-SPI INTF
+@22
+tb.user_project.qspi_din[3:0]
+@28
+tb.user_project.u_EF_QSPI_XIP_CTRL.sck
+tb.user_project.qspi_sck
+tb.qspi_douten
+@200
+-PWM
+@28
+tb.user_project.u_pwm.clk
+tb.user_project.u_pwm.pwm_o
+tb.user_project.u_pwm.pwm_q
+@22
+tb.user_project.u_pwm.count_d[7:0]
+tb.user_project.u_pwm.sample_i[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

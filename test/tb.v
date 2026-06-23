@@ -22,13 +22,25 @@ module tb ();
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
+
+  // QSPI signals for easier cocotb access
+  wire qspi_cs_n = uio_out[0];
+  wire qspi_sck  = uio_out[3];
+  wire qspi_sd0  = uio_out[1];
+  wire qspi_sd1  = uio_out[2];
+  wire qspi_sd2  = uio_out[4];
+  wire qspi_sd3  = uio_out[5];
+  wire qspi_douten = uio_oe[1];
+`ifdef VAL
+  wire done    = uio_out[6];
+`endif
+
 `ifdef GL_TEST
   wire VPWR = 1'b1;
   wire VGND = 1'b0;
 `endif
 
-  // Replace tt_um_example with your module name:
-  tt_um_example user_project (
+  tt_um_hariri4534_audioplayback user_project (
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
