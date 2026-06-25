@@ -102,7 +102,7 @@ class QSPIFlash:
         return nibble
 
     def _set_nibble(self, nibble, drive=True):
-        current = self.dut.uio_in.value
+        current = int(self.dut.uio_in.value)
         mask = (1 << 1) | (1 << 2) | (1 << 4) | (1 << 5)
         if not drive:
             self.dut.uio_in.value = current & ~mask
