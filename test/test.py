@@ -44,7 +44,7 @@ class QSPIFlash:
                 cmd = 0
                 for i in range(8):
                     await RisingEdge(self.sck)
-                    cmd = (cmd << 1) | self.sd0.value.integer
+                    cmd = (cmd << 1) | int(self.sd0.value)
                 self.log.info(f"Flash: Command 0x{cmd:02X} received")
             else:
                 self.log.info(f"Flash: Skip command loop and go straight to address")
@@ -95,10 +95,10 @@ class QSPIFlash:
 
     def _get_nibble(self):
         nibble = 0
-        if self.sd0.value.integer: nibble |= 0x1
-        if self.sd1.value.integer: nibble |= 0x2
-        if self.sd2.value.integer: nibble |= 0x4
-        if self.sd3.value.integer: nibble |= 0x8
+        if int(self.sd0.value): nibble |= 0x1
+        if int(self.sd1.value): nibble |= 0x2
+        if int(self.sd2.value): nibble |= 0x4
+        if int(self.sd3.value): nibble |= 0x8
         return nibble
 
     def _set_nibble(self, nibble, drive=True):
