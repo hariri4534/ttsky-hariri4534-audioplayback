@@ -31,6 +31,11 @@ localparam LINE_SIZE = 8;
 // ui_in
 // [1] playback_speed
 // [0] playback_speed
+`ifdef VAL
+`define VAL_OR_GL_TEST
+`elsif GL_TEST
+`define VAL_OR_GL_TEST
+`endif
 
   wire pwm_out;
   wire sample_valid;
@@ -56,7 +61,7 @@ localparam LINE_SIZE = 8;
   assign uio_out[3] = qspi_sck;
   assign uio_out[4] = qspi_dout[2];
   assign uio_out[5] = qspi_dout[3];
-`ifdef VAL
+`ifdef VAL_OR_GL_TEST
   assign uio_out[6] = done_w_sck;
 `else
   assign uio_out[6] = 1'b0;

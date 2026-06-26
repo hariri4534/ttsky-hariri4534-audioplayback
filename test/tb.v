@@ -13,6 +13,12 @@ module tb ();
     #1;
   end
 
+`ifdef VAL
+`define VAL_OR_GL_TEST
+`elsif GL_TEST
+`define VAL_OR_GL_TEST
+`endif
+
   // Wire up the inputs and outputs:
   reg clk;
   reg rst_n;
@@ -31,7 +37,7 @@ module tb ();
   wire qspi_sd2  = uio_out[4];
   wire qspi_sd3  = uio_out[5];
   wire qspi_douten = uio_oe[1];
-`ifdef VAL
+`ifdef VAL_OR_GL_TEST
   wire done    = uio_out[6];
 `endif
 
