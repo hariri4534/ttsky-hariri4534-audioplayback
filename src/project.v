@@ -19,8 +19,8 @@ module tt_um_hariri4534_audioplayback (
 localparam LINE_SIZE = 8;
 // bidir pinouts
 //    uio_in            | uio_out
-// [7] - start_prog     | [7] - audio_out
-// [6] - end_prog       | [6] - VAL:rd_req
+// [7] -                | [7] - audio_out
+// [6] -                | [6] - VAL:rd_req
 // [5] - SD3            | [5] - SD3
 // [4] - SD2            | [4] - SD2
 // [3] - unused         | [3] - SCK

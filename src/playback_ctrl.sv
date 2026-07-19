@@ -15,6 +15,7 @@ module playback_ctrl #(parameter LINE_SIZE=16) (
     output reg         pwm_o
 );
 
+`define PTR_W $clog2(LINE_SIZE)-1:0;
 localparam ADDR_PAD = 24 - $clog2(LINE_SIZE) - 1;
 logic [LINE_SIZE*8-1:0] data_buf_q;
 logic [$clog2(LINE_SIZE):0] addr_offset;
@@ -58,10 +59,13 @@ end
 // 01 | 1x   speed  (sample move as normal)
 // 10 | 1.5  speed  (move by 1 sample, followed by 2 sample)
 // 11 | 2x   speed  (skip every other sample)
+// |count[5:0] is so that speed_ctl_en to avoid jitter in latching speed_ctl_i
+logic speed_ctl_en;
+assign speed_ctl_en = |count_q[5:0] & ~|sample_ptr_q;
 always_ff @( posedge clk ) begin
     if (~rst_n) begin
         speed_ctl_q <= '0;
-    end else if (rd_en_q) begin
+    end else if (speed_ctl_en) begin
         speed_ctl_q <= speed_ctl_i;
     end
 end 
@@ -104,30 +108,23 @@ end
 assign sample_ptr_nxt   = next_sample ? sample_ptr_q + { {2{1'b0}}, sample_ptr_increment }
                                       : sample_ptr_q;
 //TODO: align gen_read_req with QSPI cycles to make sure PWM output stays the same until 255
-assign gen_read_req = ((speed_ctl_q == 2'b00) &   sample_toggle_q & &sample_ptr_q // 0.5x speed, when last ptr is played twice
-                    | (speed_ctl_q == 2'b01) &  &sample_ptr_q                   // 1x   speed, when ptr is 0xFF
-                    | (speed_ctl_q == 2'b10) &  &sample_ptr_q                   // 1.5x speed, when ptr is 0xFF
-                    | (speed_ctl_q == 2'b11) &  (sample_ptr_q == 4'd14) )       // 2x speed, when ptr is at 14
+//TODO: remove magic number 162 that aligns read request assert to QSPI controller to data coming in
+assign gen_read_req = ((speed_ctl_q == 2'b00) &   sample_toggle_q & (&sample_ptr_q) // 0.5x speed, when last ptr is played twice
+                    |  (speed_ctl_q == 2'b01) &  (&sample_ptr_q)                    // 1x   speed, when ptr is last
+                    |  (speed_ctl_q == 2'b10) &  (sample_ptr_q == 3'd6)             // 1.5x speed, when ptr is 6
+                    |  (speed_ctl_q == 2'b11) &  (sample_ptr_q == 3'd6) )           // 2x speed, when ptr is at 6
                        & (count_q == 8'd162); 
 
 
 // Binary coded mux to select sample data for PWM
-assign pwm_data = {8{sample_ptr_q == 4'd0}}  & data_buf_q[0   +: 8]
-                | {8{sample_ptr_q == 4'd1}}  & data_buf_q[8   +: 8]
-                | {8{sample_ptr_q == 4'd2}}  & data_buf_q[16  +: 8]
-                | {8{sample_ptr_q == 4'd3}}  & data_buf_q[24  +: 8]
-                | {8{sample_ptr_q == 4'd4}}  & data_buf_q[32  +: 8]
-                | {8{sample_ptr_q == 4'd5}}  & data_buf_q[40  +: 8]
-                | {8{sample_ptr_q == 4'd6}}  & data_buf_q[48  +: 8]
-                | {8{sample_ptr_q == 4'd7}}  & data_buf_q[56  +: 8]
-                | {8{sample_ptr_q == 4'd8}}  & data_buf_q[64  +: 8]
-                | {8{sample_ptr_q == 4'd9}}  & data_buf_q[72  +: 8]
-                | {8{sample_ptr_q == 4'd10}} & data_buf_q[80  +: 8]
-                | {8{sample_ptr_q == 4'd11}} & data_buf_q[88  +: 8]
-                | {8{sample_ptr_q == 4'd12}} & data_buf_q[96  +: 8]
-                | {8{sample_ptr_q == 4'd13}} & data_buf_q[104 +: 8]
-                | {8{sample_ptr_q == 4'd14}} & data_buf_q[112 +: 8]
-                | {8{sample_ptr_q == 4'd15}} & data_buf_q[120 +: 8];
+assign pwm_data = {8{sample_ptr_q == 3'd0}}  & data_buf_q[0   +: 8]
+                | {8{sample_ptr_q == 3'd1}}  & data_buf_q[8   +: 8]
+                | {8{sample_ptr_q == 3'd2}}  & data_buf_q[16  +: 8]
+                | {8{sample_ptr_q == 3'd3}}  & data_buf_q[24  +: 8]
+                | {8{sample_ptr_q == 3'd4}}  & data_buf_q[32  +: 8]
+                | {8{sample_ptr_q == 3'd5}}  & data_buf_q[40  +: 8]
+                | {8{sample_ptr_q == 3'd6}}  & data_buf_q[48  +: 8]
+                | {8{sample_ptr_q == 3'd7}}  & data_buf_q[56  +: 8];
 
 assign pwm_d = count_nxt < pwm_data;
 

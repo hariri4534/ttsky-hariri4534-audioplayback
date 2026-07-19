@@ -13,7 +13,7 @@ This project is a digital audio playback controller that streams 8-bit PCM audio
 
 1. **QSPI Flash Controller (`EF_QSPI_XIP_CTRL`):**
    * **Initialization**: On reset, the controller executes a software reset sequence (`0x66`, `0x99`) to ensure the flash is in standard 1-bit SPI mode.
-   * **Data Fetching**: It uses the **Fast Read Quad I/O (`0xEB`)** instruction to fetch audio data in 16-byte (128-bit) chunks.
+   * **Data Fetching**: It uses the **Fast Read Quad I/O (`0xEB`)** instruction to fetch audio data in 8-byte (64-bit) chunks.
 2. **Playback Buffer & Controller (`playback_ctrl`):**
    * The fetched 16 bytes of data are loaded into a buffer.
    * Based on the speed control inputs, the buffer plays back the 8-bit PCM samples sequentially and triggers the QSPI controller to fetch the next line once the buffer is depleted.
