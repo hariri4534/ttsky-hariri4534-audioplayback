@@ -141,9 +141,9 @@ async def assert_gen_read_req_logic(dut):
             elif speed_ctl == 1:    # 1x speed
                 cond = is_last_ptr
             elif speed_ctl == 2:    # 1.5x speed
-                cond = (sample_ptr == 6)
+                cond = (sample_ptr == 6) or (sample_ptr == 7)
             elif speed_ctl == 3:    # 2x speed
-                cond = (sample_ptr == 6)
+                cond = (sample_ptr == 6) or (sample_ptr == 7)
                 
             expected = 1 if (cond and (count == 162)) else 0
             
@@ -246,7 +246,7 @@ async def test_qspi(dut):
     dut._log.info("Start QSPI Simulation Test")
 
     # Pre-fill memory with some audio-like pattern (sawtooth)
-    mem = {i: (i % 256) for i in range(1,1024)}
+    mem = {i: (i % 256) for i in range(1,4096)}
 
     # Start assertion checkers
     cocotb.start_soon(assert_gen_read_req_logic(dut))
@@ -283,6 +283,6 @@ async def test_qspi(dut):
     # and we can check the internal signals if needed.
     
     # Let's wait a bit more to see multiple line reads
-    await ClockCycles(dut.clk, 100*1000)
+    await ClockCycles(dut.clk, 255*3000)
     
     dut._log.info("Finished QSPI Simulation Test")

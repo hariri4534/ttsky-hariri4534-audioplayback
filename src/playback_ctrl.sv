@@ -1,6 +1,6 @@
 `default_nettype none
 
-module playback_ctrl #(parameter LINE_SIZE=16) (
+module playback_ctrl #(parameter LINE_SIZE=8) (
     input  wire        clk,
     input  wire        rst_n,
 
@@ -20,6 +20,8 @@ localparam ADDR_PAD = 24 - $clog2(LINE_SIZE) - 1;
 logic [LINE_SIZE*8-1:0] data_buf_q;
 logic [$clog2(LINE_SIZE):0] addr_offset;
 
+logic final_sample;
+logic sample_toggle_nxt;
 logic [1:0] speed_ctl_q;
 logic [1:0] sample_ptr_increment;
 logic sample_toggle_q;
@@ -74,11 +76,11 @@ end
 // count up to 255 cycles
 always_ff @(posedge clk) begin
     if (~rst_n) begin
-        count_q <= '0;
         sample_ptr_q <= '0;
+        count_q <= '0;
     end else if (start_count_q) begin
-        count_q <= count_nxt;
         sample_ptr_q <= sample_ptr_nxt;
+        count_q <= count_nxt;
     end
 end
 
@@ -86,7 +88,7 @@ always_ff @(posedge clk) begin
     if (~rst_n) begin
         sample_toggle_q <= '0;
     end else if (next_sample) begin
-        sample_toggle_q <= ~sample_toggle_q;
+        sample_toggle_q <= sample_toggle_nxt;
     end
 end
 
@@ -104,17 +106,17 @@ always_comb begin
      default : sample_ptr_increment = 'x;
     endcase
 end
-
-assign sample_ptr_nxt   = next_sample ? sample_ptr_q + { {2{1'b0}}, sample_ptr_increment }
-                                      : sample_ptr_q;
+// For playback 1.5 or 2x, make final_sample be at 6 or 7 to avoid deadlock
+assign final_sample = (((speed_ctl_q == 2'b00) &   sample_toggle_q & (sample_ptr_q == 3'b111)) // 0.5x speed, when last ptr is played twice
+                    |  ((speed_ctl_q == 2'b01) &  (sample_ptr_q == 3'b111))                    // 1x   speed, when ptr is last
+                    |  ((speed_ctl_q == 2'b10) &  (sample_ptr_q[2:1] == 2'b11))                // 1.5x speed
+                    |  ((speed_ctl_q == 2'b11) &  (sample_ptr_q[2:1] == 2'b11)));              // 2x   speed
+assign sample_toggle_nxt = final_sample ? '0 : ~sample_toggle_q;
+assign sample_ptr_nxt    = next_sample  ? (sample_ptr_q + { {1{1'b0}}, sample_ptr_increment }) & {3{~final_sample}}
+                                        : sample_ptr_q;
 //TODO: align gen_read_req with QSPI cycles to make sure PWM output stays the same until 255
 //TODO: remove magic number 162 that aligns read request assert to QSPI controller to data coming in
-assign gen_read_req = ((speed_ctl_q == 2'b00) &   sample_toggle_q & (&sample_ptr_q) // 0.5x speed, when last ptr is played twice
-                    |  (speed_ctl_q == 2'b01) &  (&sample_ptr_q)                    // 1x   speed, when ptr is last
-                    |  (speed_ctl_q == 2'b10) &  (sample_ptr_q == 3'd6)             // 1.5x speed, when ptr is 6
-                    |  (speed_ctl_q == 2'b11) &  (sample_ptr_q == 3'd6) )           // 2x speed, when ptr is at 6
-                       & (count_q == 8'd162); 
-
+assign gen_read_req = final_sample & (count_q == 8'd162); 
 
 // Binary coded mux to select sample data for PWM
 assign pwm_data = {8{sample_ptr_q == 3'd0}}  & data_buf_q[0   +: 8]
@@ -149,7 +151,7 @@ always_ff @(posedge clk) begin
 end
 
 assign addr_offset[$clog2(LINE_SIZE)]       = 1'b1;
-assign addr_offset[$clog2(LINE_SIZE)-1:0]   = 4'b0000;
+assign addr_offset[$clog2(LINE_SIZE)-1:0]   = 3'b000;
 assign addr_nxt = rd_en_q ? addr_q + { {ADDR_PAD{1'b0}}, addr_offset }
                           : addr_q;
 
